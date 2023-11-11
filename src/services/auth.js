@@ -1,0 +1,5 @@
+/**
+ * Auth service.
+ */
+
+export default {};

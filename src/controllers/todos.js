@@ -1,0 +1,5 @@
+/**
+ * Todos controller.
+ */
+
+export default {};
