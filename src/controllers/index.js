@@ -1,10 +1,10 @@
 /**
  * Controllers.
  */
-import auth from './auth';
-import todos from './todos';
+const AuthController = require('./auth');
+const TodosController = require('./todos');
 
-export default {
-  auth,
-  todos,
+module.exports = {
+  AuthController,
+  TodosController,
 };

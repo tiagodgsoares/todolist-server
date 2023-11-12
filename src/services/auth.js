@@ -2,4 +2,4 @@
  * Auth service.
  */
 
-export default {};
+module.exports = {};

@@ -2,4 +2,4 @@
  * Auth controller.
  */
 
-export default {};
+module.exports = {};

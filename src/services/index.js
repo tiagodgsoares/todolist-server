@@ -1,10 +1,10 @@
 /**
  * Services.
  */
-import auth from './auth';
-import todos from './todos';
+const AuthService = require('./auth');
+const TodosService = require('./todos');
 
-export default {
-  auth,
-  todos,
+module.exports = {
+  AuthService,
+  TodosService,
 };

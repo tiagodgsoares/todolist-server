@@ -1,10 +1,10 @@
 /**
  * Routes.
  */
-import auth from './auth';
-import todos from './todos';
+const AuthRoute = require('./auth');
+const TodosRoute = require('./todos');
 
-export default [
-  ...auth,
-  ...todos,
+module.exports = [
+  ...AuthRoute,
+  ...TodosRoute,
 ];
