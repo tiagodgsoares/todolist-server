@@ -5,7 +5,6 @@ const { TodosService } = require('../services/index');
 
 /**
  * Adds a new to-do item.
- *
  */
 async function addTodo(request, h) {
   const { description } = request.payload;
@@ -23,7 +22,6 @@ async function addTodo(request, h) {
 
 /**
  * Gets a list of to-do items.
- *
  */
 async function getTodos(request, h) {
   try {
@@ -36,7 +34,6 @@ async function getTodos(request, h) {
 
 /**
  * Edits a to-do item.
- *
  */
 async function editTodo(request, h) {
   try {
@@ -53,8 +50,22 @@ async function editTodo(request, h) {
   }
 }
 
+/**
+ * Removes a to-do item.
+ */
+async function removeTodo(request, h) {
+  try {
+    const { id } = request.params;
+    await TodosService.deleteItem(id);
+    return h.response().code(204);
+  } catch (error) {
+    return h.response({ message: error.message }).code(404);
+  }
+}
+
 module.exports = {
   addTodo,
   getTodos,
   editTodo,
+  removeTodo,
 };

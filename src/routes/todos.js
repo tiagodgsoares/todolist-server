@@ -60,4 +60,17 @@ module.exports = [
       },
     },
   },
+  {
+    method: 'DELETE',
+    path: `${path}/{id}/`,
+    handler: TodosController.removeTodo,
+    options: {
+      tags: ['api'],
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().min(1).required(),
+        }),
+      },
+    },
+  },
 ];
