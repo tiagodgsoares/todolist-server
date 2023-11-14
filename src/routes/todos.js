@@ -11,7 +11,7 @@ module.exports = [
   {
     method: 'POST',
     path: `${path}`,
-    handler: TodosController.addItem,
+    handler: TodosController.addTodo,
     options: {
       tags: ['api'],
       validate: {
@@ -40,6 +40,23 @@ module.exports = [
             ORDER.COMPLETED_AT,
           ).default(ORDER.CREATED_AT),
         }),
+      },
+    },
+  },
+  {
+    method: 'PATCH',
+    path: `${path}/{id}/`,
+    handler: TodosController.editTodo,
+    options: {
+      tags: ['api'],
+      validate: {
+        params: Joi.object({
+          id: Joi.number().integer().min(1).required(),
+        }),
+        payload: Joi.object({
+          state: Joi.string().valid('COMPLETE'),
+          description: Joi.string(),
+        }).or('state', 'description').required(),
       },
     },
   },

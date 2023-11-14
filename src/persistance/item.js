@@ -62,8 +62,61 @@ function getItemsFilteredBy(filter, order) {
   }
 }
 
+function getItemById(id) {
+  try {
+    return Knex('items')
+      .select('*')
+      .where('id', id)
+      .first();
+  } catch (error) {
+    throw new Error('Error fetching item from DB.');
+  }
+}
+
+function updateItemDescription(item) {
+  try {
+    return Knex('items')
+      .where('id', item.id)
+      .update({
+        description: item.description,
+      })
+      .returning([
+        'id',
+        'state',
+        'description',
+        'createdAt',
+        'completedAt',
+      ]);
+  } catch (error) {
+    throw new Error('Error updating item in DB.');
+  }
+}
+
+function updateItemState(item) {
+  try {
+    return Knex('items')
+      .where('id', item.id)
+      .update({
+        state: item.state,
+        completedAt: Knex.fn.now(),
+      })
+      .returning([
+        'id',
+        'state',
+        'description',
+        'createdAt',
+        'completedAt',
+      ]);
+  } catch (error) {
+    throw new Error('Error updating item in DB.');
+  }
+}
+
 module.exports = {
   add,
   getAllItemsOrderedBy,
   getItemsFilteredBy,
+  getItemById,
+  updateItemDescription,
+  updateItemState,
 };
