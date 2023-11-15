@@ -7,13 +7,14 @@ const Knex = require('../knex');
  * Inserts a new item to database, throws an error if the insert fails.
 *
 * @param {string} description - The description of the item to create.
+* @param {number} userId      - The user of the item to create.
 *
 * @returns {Promise<Item>} The created item.
 */
-function add(description) {
+function addItem(description, userId) {
   try {
     return Knex('items')
-      .insert({ description })
+      .insert({ description, userId })
       .returning([
         'id',
         'state',
@@ -152,7 +153,7 @@ async function deleteItem(id) {
 }
 
 module.exports = {
-  add,
+  addItem,
   getAllItemsOrderedBy,
   getItemsFilteredBy,
   getItemById,

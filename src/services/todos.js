@@ -11,8 +11,8 @@ const Item = require('../persistance/item');
 *
 * @returns {Promise<Item>} The created item.
 */
-function addItem(description) {
-  return Item.add(description);
+function addItem(description, userId) {
+  return Item.addItem(description, userId);
 }
 
 /**

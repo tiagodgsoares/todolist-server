@@ -8,9 +8,10 @@ const { TodosService } = require('../services/index');
  */
 async function addTodo(request, h) {
   const { description } = request.payload;
+  const userId = request.auth.credentials.id; // TODO: update this later
 
   try {
-    const newTodo = await TodosService.addItem(description);
+    const newTodo = await TodosService.addItem(description, userId);
 
     if (!newTodo) { throw new Error('There was a problem creating the new item'); }
 
