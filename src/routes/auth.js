@@ -20,4 +20,18 @@ module.exports = [
       },
     },
   },
+  {
+    method: 'POST',
+    path: '/login',
+    handler: AuthController.login,
+    options: {
+      tags: ['api'],
+      validate: {
+        payload: Joi.object({
+          email: Joi.string().required(),
+          password: Joi.string().required(),
+        }),
+      },
+    },
+  },
 ];

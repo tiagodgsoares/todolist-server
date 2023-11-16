@@ -7,27 +7,29 @@ const Item = require('../persistance/item');
 /**
  * Adds a new item.
  *
+ * @param {number} userId - The user ID of the items.
  * @param {string} description - The description of the item to create.
-*
-* @returns {Promise<Item>} The created item.
-*/
-function addItem(description, userId) {
-  return Item.addItem(description, userId);
+ *
+ * @returns {Promise<Item>} The created item.
+ */
+function addItem(userId, description) {
+  return Item.addItem(userId, description);
 }
 
 /**
  * Gets a list of items based on filter and order criteria.
  *
+ * @param {number} userId - The user ID of the items.
  * @param {string} filter - The filter criteria.
  * @param {string} order  - The order criteria.
-*
-* @returns {Promise<Item[]>} An array of items based on the filter and order criteria.
-*/
-function getItems(filter, order) {
+ *
+ * @returns {Promise<Item[]>} An array of items based on the filter and order criteria.
+ */
+function getItems(userId, filter, order) {
   if (filter === FILTER.ALL) {
-    return Item.getAllItemsOrderedBy(order);
+    return Item.getAllItemsOrderedBy(userId, order);
   }
-  return Item.getItemsFilteredBy(filter, order);
+  return Item.getItemsFilteredBy(userId, filter, order);
 }
 
 /**

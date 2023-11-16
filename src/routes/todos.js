@@ -13,6 +13,7 @@ module.exports = [
     path: `${path}`,
     handler: TodosController.addTodo,
     options: {
+      auth: 'jwt',
       tags: ['api'],
       validate: {
         payload: Joi.object({
@@ -26,6 +27,7 @@ module.exports = [
     path: `${path}`,
     handler: TodosController.getTodos,
     options: {
+      auth: 'jwt',
       tags: ['api'],
       validate: {
         query: Joi.object({
@@ -48,6 +50,7 @@ module.exports = [
     path: `${path}/{id}/`,
     handler: TodosController.editTodo,
     options: {
+      auth: 'jwt',
       tags: ['api'],
       validate: {
         params: Joi.object({
@@ -65,6 +68,7 @@ module.exports = [
     path: `${path}/{id}/`,
     handler: TodosController.removeTodo,
     options: {
+      auth: 'jwt',
       tags: ['api'],
       validate: {
         params: Joi.object({

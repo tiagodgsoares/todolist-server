@@ -9,3 +9,12 @@
  * @property {Date}     createdAt       - Creation date of the item.
  * @property {Date}     completedAt     - Completion date of the item.
  */
+
+/**
+ * The representation of a system User.
+ * @typedef {Object} User
+ *
+ * @property {string}   name       - The name of the user.
+ * @property {string}   email      - The e-mail of the user.
+ * @property {string}   password   - The user password.
+ */

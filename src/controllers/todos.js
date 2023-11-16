@@ -7,11 +7,11 @@ const { TodosService } = require('../services/index');
  * Adds a new to-do item.
  */
 async function addTodo(request, h) {
+  const { userId } = request.auth.credentials;
   const { description } = request.payload;
-  const userId = request.auth.credentials.id; // TODO: update this later
 
   try {
-    const newTodo = await TodosService.addItem(description, userId);
+    const newTodo = await TodosService.addItem(userId, description);
 
     if (!newTodo) { throw new Error('There was a problem creating the new item'); }
 
@@ -22,11 +22,14 @@ async function addTodo(request, h) {
 }
 
 /**
- * Gets a list of to-do items.
+ * Gets the list of to-do items of the given user.
  */
 async function getTodos(request, h) {
+  const { userId } = request.auth.credentials;
+  const { filter, orderBy } = request.query;
+
   try {
-    const todos = await TodosService.getItems(request.query.filter, request.query.orderBy);
+    const todos = await TodosService.getItems(userId, filter, orderBy);
     return h.response(todos).code(200);
   } catch (error) {
     return h.response({ message: error.message }).code(400);

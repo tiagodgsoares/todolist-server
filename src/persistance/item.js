@@ -6,15 +6,15 @@ const Knex = require('../knex');
 /**
  * Inserts a new item to database, throws an error if the insert fails.
 *
+* @param {number} userId      - The user ID of the item to create.
 * @param {string} description - The description of the item to create.
-* @param {number} userId      - The user of the item to create.
 *
 * @returns {Promise<Item>} The created item.
 */
-function addItem(description, userId) {
+async function addItem(userId, description) {
   try {
-    return Knex('items')
-      .insert({ description, userId })
+    const item = await Knex('items')
+      .insert({ userId, description })
       .returning([
         'id',
         'state',
@@ -22,6 +22,7 @@ function addItem(description, userId) {
         'createdAt',
         'completedAt',
       ]);
+    return item;
   } catch (error) {
     throw new Error('Error inserting item into DB.');
   }
@@ -30,34 +31,40 @@ function addItem(description, userId) {
 /**
  * Retrieves all items from the database and orders them by the specified criteria.
  *
- * @param {string} order - The order criteria.
+ * @param {number} userId - The user ID of the items to retrieve.
+ * @param {string} order  - The order criteria.
  *
  * @returns {Promise<Item[]>} An array of items ordered by the specified criteria.
  */
-function getAllItemsOrderedBy(order) {
+async function getAllItemsOrderedBy(userId, order) {
   try {
-    return Knex('items')
+    const items = await Knex('items')
       .select('*')
+      .where({ userId })
       .orderBy(order);
+    return items;
   } catch (error) {
     throw new Error('Error fetching items from DB.');
   }
 }
 
 /**
- * Retrieves items from the database filtered by state and orders them by the specified criteria.
+ * Retrieves items of the user from the database
+ * filtered by state and orders them by the specified criteria.
  *
+ * @param {number} userId - The user ID of the items to retrieve.
  * @param {string} filter - The filter criteria.
  * @param {string} order  - The order criteria.
  *
  * @returns {Promise<Item[]>} An array of items filtered and ordered based on the criteria.
  */
-function getItemsFilteredBy(filter, order) {
+async function getItemsFilteredBy(userId, filter, order) {
   try {
-    return Knex('items')
+    const items = await Knex('items')
       .select('*')
-      .where('state', filter)
+      .where({ userId, state: filter })
       .orderBy(order);
+    return items;
   } catch (error) {
     throw new Error('Error fetching items from DB.');
   }
@@ -89,9 +96,9 @@ async function getItemById(id) {
  *
  * @returns {Promise<Item>} The updated item.
  */
-function updateItemDescription(item) {
+async function updateItemDescription(item) {
   try {
-    return Knex('items')
+    const updatedItem = await Knex('items')
       .where('id', item.id)
       .update({
         description: item.description,
@@ -103,6 +110,7 @@ function updateItemDescription(item) {
         'createdAt',
         'completedAt',
       ]);
+    return updatedItem;
   } catch (error) {
     throw new Error('Error updating item in DB.');
   }
@@ -115,9 +123,9 @@ function updateItemDescription(item) {
  *
  * @returns {Promise<Item>} The updated item.
  */
-function updateItemState(item) {
+async function updateItemState(item) {
   try {
-    return Knex('items')
+    const updatedItem = await Knex('items')
       .where('id', item.id)
       .update({
         state: item.state,
@@ -130,6 +138,7 @@ function updateItemState(item) {
         'createdAt',
         'completedAt',
       ]);
+    return updatedItem;
   } catch (error) {
     throw new Error('Error updating item in DB.');
   }
