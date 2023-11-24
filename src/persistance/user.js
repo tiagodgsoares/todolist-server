@@ -1,3 +1,4 @@
+/// <reference path='../typedefs.js'/>
 /**
  * User persistance.
  */

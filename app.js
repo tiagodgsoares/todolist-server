@@ -8,8 +8,15 @@ const { validateJWT } = require('./src/services/auth');
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3000,
+    port: 8000,
     host: 'localhost',
+    routes: {
+      cors: {
+        origin: ['*'],
+        credentials: true,
+        additionalHeaders: ['userId'],
+      },
+    },
   });
 
   await server.register([

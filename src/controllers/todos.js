@@ -61,7 +61,7 @@ async function removeTodo(request, h) {
   try {
     const { id } = request.params;
     await TodosService.deleteItem(id);
-    return h.response().code(204);
+    return h.response({ message: 'Item deleted!' }).code(204);
   } catch (error) {
     return h.response({ message: error.message }).code(404);
   }

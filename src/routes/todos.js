@@ -47,7 +47,7 @@ module.exports = [
   },
   {
     method: 'PATCH',
-    path: `${path}/{id}/`,
+    path: `${path}/{id}`,
     handler: TodosController.editTodo,
     options: {
       auth: 'jwt',
@@ -65,7 +65,7 @@ module.exports = [
   },
   {
     method: 'DELETE',
-    path: `${path}/{id}/`,
+    path: `${path}/{id}`,
     handler: TodosController.removeTodo,
     options: {
       auth: 'jwt',
